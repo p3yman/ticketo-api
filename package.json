@@ -1,0 +1,23 @@
+{
+  "name": "ticketo-api",
+  "version": "1.0.0",
+  "description": "Ticketo API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peyman3d/ticketo-api.git"
+  },
+  "keywords": [
+    "ticket",
+    "support"
+  ],
+  "author": "Peyman Eskandari (@peyman3d)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peyman3d/ticketo-api/issues"
+  },
+  "homepage": "https://github.com/peyman3d/ticketo-api#readme"
+}
