@@ -4,6 +4,7 @@
 const express = require('express');
 const morgan = require('morgan');
 
+// Initiate application
 const app = express();
 
 // Default middlewares
@@ -13,11 +14,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 app.use(express.static(`${__dirname}/../public`));
 
-app.route('/').get((req, res) => {
-    res.status(200).json({
-        message: 'Hello Ticketo.',
-    });
-});
+// ROUTES
+const registerRoutes = require('./router');
+registerRoutes(app);
 
 // EXPORT APP
 module.exports = app;
