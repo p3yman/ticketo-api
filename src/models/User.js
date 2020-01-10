@@ -1,9 +1,9 @@
 /*-----------------------------------------------------------------
 - User model
 -----------------------------------------------------------------*/
-const mongoose = require('mongoose');
+const Model = require('./Model');
 
-const schema = new mongoose.Schema({
+module.exports = new Model('User', {
     first_name: {
         type    : String,
         required: true,
@@ -11,7 +11,5 @@ const schema = new mongoose.Schema({
     last_name : {
         type    : String,
         required: true,
-    },
+    }
 });
-
-module.exports = mongoose.model('User', schema);
