@@ -4,6 +4,9 @@
 const express = require('express');
 const morgan = require('morgan');
 
+// Configs
+require('./configs');
+
 // Initiate application
 const app = express();
 
