@@ -68,10 +68,6 @@ const Schema = new mongoose.Schema(
     status: {
       type: String,
       default: 'active'
-    },
-
-    deletedAt: {
-      type: Date
     }
   },
   { timestamps: true }

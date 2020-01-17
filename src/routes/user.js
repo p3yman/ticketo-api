@@ -13,6 +13,9 @@ router
   .route('/:id')
   .get(controller.single)
   .put(controller.update)
-  .delete(controller.delete);
+  .delete(controller.destroy);
+
+router.route('/:id/trash').delete(controller.trash);
+router.route('/:id/restore').patch(controller.restore);
 
 module.exports = router;

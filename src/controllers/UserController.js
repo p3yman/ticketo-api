@@ -79,13 +79,51 @@ exports.update = async (req, res) => {
 };
 
 /**
+ * Move a user to trash
+ *
+ * @param req
+ * @param res
+ * @return {Promise<void>}
+ */
+exports.trash = async (req, res) => {
+  try {
+    const results = await User.deleteById(req.params.id);
+    res.status(200).json({
+      metadata: {},
+      results
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+/**
+ * Restore a user from trash
+ *
+ * @param req
+ * @param res
+ * @return {Promise<void>}
+ */
+exports.restore = async (req, res) => {
+  try {
+    const results = await User.restore({ _id: req.params.id });
+    res.status(200).json({
+      metadata: {},
+      results
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+/**
  * Delete user
  *
  * @param req
  * @param res
  * @return {Promise<void>}
  */
-exports.delete = async (req, res) => {
+exports.destroy = async (req, res) => {
   try {
     const results = await User.findByIdAndRemove(req.params.id);
     res.status(200).json({
