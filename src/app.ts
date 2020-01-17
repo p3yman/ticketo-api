@@ -1,25 +1,25 @@
 /*-----------------------------------------------------------------
 - Application entry point
 -----------------------------------------------------------------*/
-const express = require("express");
-const morgan = require("morgan");
+import express, { Application } from 'express';
+import morgan from 'morgan';
 
 // Configs
-require("./configs");
+require('./configs');
 
 // Initiate application
-const app = express();
+const app: Application = express();
 
 // Default middlewares
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
 }
 app.use(express.json());
 app.use(express.static(`${__dirname}/../public`));
 
 // ROUTES
-const registerRoutes = require("./router");
-registerRoutes(app);
+import router from './router';
+router(app);
 
 // EXPORT APP
-module.exports = app;
+export default app;

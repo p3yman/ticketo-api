@@ -2,14 +2,14 @@
 - Server
 -----------------------------------------------------------------*/
 // Load env configs
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
 
 // Database connection
-require('./db');
+import './db';
 
 // Load application
-const app = require('./app');
+import app from './app';
 
 // Create and start server
 const port = process.env.PORT || 3000;

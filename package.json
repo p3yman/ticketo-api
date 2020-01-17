@@ -4,7 +4,9 @@
   "description": "Ticketo API",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc -p ."
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/peyman3d/ticketo-api#readme",
   "dependencies": {
+    "@types/morgan": "^1.7.37",
     "bcrypt": "^3.0.7",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -31,8 +34,11 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.2",
     "eslint": "^6.8.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   }
 }
