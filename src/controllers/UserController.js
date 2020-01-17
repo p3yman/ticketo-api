@@ -11,12 +11,12 @@ const User = require('./../models/User');
  * @return {Promise<void>}
  */
 exports.list = async (req, res) => {
-    try {
-        const results = await User.find();
-        res.status(200).json(results);
-    } catch (err) {
-        res.status(400).json(err);
-    }
+  try {
+    const results = await User.paginate();
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 };
 
 /**
@@ -27,11 +27,72 @@ exports.list = async (req, res) => {
  * @return {Promise<void>}
  */
 exports.create = async (req, res) => {
-    try {
-        console.log(req.body);
-        const results = await User.create(req.body);
-        res.status(200).json(results);
-    } catch (err) {
-        res.status(400).json(err);
-    }
+  try {
+    const results = await User.create(req.body);
+    res.status(200).json({
+      metadata: {},
+      results
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+/**
+ * Get user single
+ *
+ * @param req
+ * @param res
+ * @return {Promise<void>}
+ */
+exports.single = async (req, res) => {
+  try {
+    const results = await User.findById(req.params.id);
+    res.status(200).json({
+      metadata: {},
+      results
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+/**
+ * Update user
+ *
+ * @param req
+ * @param res
+ * @return {Promise<void>}
+ */
+exports.update = async (req, res) => {
+  try {
+    const results = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    });
+    res.status(200).json({
+      metadata: {},
+      results
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+/**
+ * Delete user
+ *
+ * @param req
+ * @param res
+ * @return {Promise<void>}
+ */
+exports.delete = async (req, res) => {
+  try {
+    const results = await User.findByIdAndRemove(req.params.id);
+    res.status(200).json({
+      metadata: {},
+      results
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
 };

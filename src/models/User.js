@@ -1,76 +1,89 @@
 /*-----------------------------------------------------------------
 - User model
 -----------------------------------------------------------------*/
-const Model = require('./Model');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-module.exports = new Model('User', {
+// Create schema
+const Schema = new mongoose.Schema(
+  {
     username: {
-        type: String,
+      type: String,
+      trim: true,
+      lowercase: true,
+      unique: [true, 'This username is already taken.'],
+      required: [true, 'Username is required.'],
+      match: [
+        /^[a-zA-Z0-9]+$/,
+        'Username can only contain letters and numbers.'
+      ],
+      minlength: [3, 'Username cannot be less than 3 characters.'],
+      maxlength: [32, 'Username cannot be longer than 32 characters.'],
+      index: true
     },
-    
-    email           : {
-        type     : String,
-        required : true,
-        unique   : true,
-        lowercase: true,
-        dropDups : true,
+
+    email: {
+      type: String,
+      lowercase: true,
+      required: [true, 'Email address is required.'],
+      match: [/\S+@\S+\.\S+/, 'Please enter a valid email address.'],
+      unique: [true, 'This email is already taken.'],
+      index: true
     },
     emailConfirmedAt: {
-        type: Date,
+      type: Date
     },
-    
-    mobile           : {
-        type: Number,
+
+    firstName: {
+      type: String,
+      required: true
     },
-    mobileConfirmedAt: {
-        type: Date,
+    lastName: {
+      type: String,
+      required: true
     },
-    
-    name_title: {
-        type: String,
-    },
-    firstName : {
-        type    : String,
-        required: true,
-    },
-    lastName  : {
-        type    : String,
-        required: true,
-    },
-    fullName  : {
-        type: String,
-    },
-    
+
     gender: {
-        type: Number,
+      type: Number
     },
-    
+
     birthAt: {
-        type: Date,
+      type: Date
     },
-    
-    password           : {
-        type    : String,
-        required: true,
-        select  : false,
+
+    password: {
+      type: String,
+      required: true,
+      minlength: [6, 'Password cannot be less than 6 characters.'],
+      maxlength: [32, 'Password cannot be longer than 32 characters.'],
+      select: false
     },
     passwordForceChange: {
-        type: Number,
+      type: Number
     },
-    resetToken         : {
-        type: String,
+    resetToken: {
+      type: String
     },
-    
+
     status: {
-        type: String,
+      type: String,
+      default: 'active'
     },
-    
-    meta: {
-        type: String,
-    },
-    
+
     deletedAt: {
-        type: Date,
-    },
-    
+      type: Date
+    }
+  },
+  { timestamps: true }
+);
+
+// Hash password using doc middleware
+Schema.pre('save', function(next) {
+  this.password = bcrypt.hashSync(this.password, 10);
+  next();
 });
+
+// Create model
+const Model = mongoose.model('User', Schema);
+
+module.exports = Model;
